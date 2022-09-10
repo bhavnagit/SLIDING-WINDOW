@@ -1,0 +1,53 @@
+class Solution {
+    static ArrayList<Integer> max_of_subarrays(int arr[], int n, int k) {
+        ArrayList<Integer> ans = new ArrayList<>();
+        int j , max;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+        for(int i = 0 ; i <= n-k ; i++){
+            max = arr[i] ;
+            for(j =1; j< k ; j++){
+                if(arr[i+j] > max){
+                    max = arr[i+j];
+                }
+                
+            }
+                        ans.add(max);
+
+        }
+        return ans;
+    }
+}
+
+This is the first approach of this question but it time limit is exceeded.
+Time Complexity = O(N*K)
+
+Approach 2:
+
+  static ArrayList<Integer> max_of_subarrays(int arr[], int n, int k) {
+                ArrayList<Integer> ans = new ArrayList<>();
+
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+        int i;
+        for( i =0; i< k ;i++){
+            pq.add(arr[i]);
+
+
+        }
+                            ans.add(pq.peek());
+
+                                        pq.remove(arr[0]);
+
+            for( ; i < arr.length ; i++) {
+                 pq.add(arr[i]);
+                    ans.add(pq.peek());
+      pq.remove(arr[i - k + 1]);
+    }
+    return ans;
+        
+        
+    }
+}
+
+Stll Time complexity is not resolved
+
+Time Complexity: O(N * Log K), Insertion, deletion and search takes log k time in a priorityQueue. So the overall time Complexity is O(N * log K)
+Auxiliary Space: O(K), The space required to store k elements in a BST is O(k)
